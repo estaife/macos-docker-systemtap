@@ -1,9 +1,11 @@
+IMAGE=macos-docker-systemtap
+
 .PHONY: all
 all: .config LINUX_VERSION LINUX_TIMESTAMP
 	docker build . \
 		--build-arg LINUX_VERSION="$(shell cat LINUX_VERSION)" \
 		--build-arg LINUX_TIMESTAMP="$(shell cat LINUX_TIMESTAMP)" \
-		-t dylan
+		-t $(IMAGE)
 
 .config:
 	docker run -i -v /:/host busybox zcat /host/proc/config.gz > $@
